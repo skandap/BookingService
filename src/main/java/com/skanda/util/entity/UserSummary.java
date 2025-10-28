@@ -1,4 +1,4 @@
-package com.skanda.createBooking.entity;
+package com.skanda.util.entity;
 
 import lombok.*;
 

@@ -1,5 +1,4 @@
-package com.skanda.createBooking.entity;
-
+package com.skanda.inquireBookingList.entity;
 
 import com.skanda.util.entity.TrainSummary;
 import com.skanda.util.entity.UserSummary;
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 @Builder
-public class CreateBookingResponse {
+public class InquireBookingListResponse {
     private Long bookingId;
     private UserSummary user;
     private TrainSummary train;
@@ -23,4 +22,5 @@ public class CreateBookingResponse {
     private String paymentMode;
     private String bookingStatus;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

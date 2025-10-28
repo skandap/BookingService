@@ -1,0 +1,10 @@
+package com.skanda.inquireUserBookings.service;
+
+import com.skanda.inquireUserBookings.entity.InquireUserBookingResponse;
+
+public class InquireUserBookingServiceImpl implements InquireUserBookingService{
+    @Override
+    public InquireUserBookingResponse fetchUserBookings(String userId) {
+        return null;
+    }
+}

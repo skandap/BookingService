@@ -1,19 +1,22 @@
-package com.skanda.createBooking.entity;
-
+package com.skanda.inquireBookingDetails.entity;
 
 import com.skanda.util.entity.TrainSummary;
 import com.skanda.util.entity.UserSummary;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.ToString;
+import org.mapstruct.control.NoComplexMapping;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
+@NoComplexMapping
 @AllArgsConstructor
-@ToString
 @Builder
-public class CreateBookingResponse {
+@ToString
+public class InquireBookingDetailsResponse {
     private Long bookingId;
     private UserSummary user;
     private TrainSummary train;
@@ -23,4 +26,5 @@ public class CreateBookingResponse {
     private String paymentMode;
     private String bookingStatus;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
