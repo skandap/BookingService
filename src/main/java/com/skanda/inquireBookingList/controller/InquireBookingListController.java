@@ -21,6 +21,6 @@ public class InquireBookingListController {
     @GetMapping("/bookings")
     public ResponseEntity<List<InquireBookingListResponse>> createBooking()
     {
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

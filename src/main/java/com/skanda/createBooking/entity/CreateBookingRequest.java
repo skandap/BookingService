@@ -1,5 +1,6 @@
 package com.skanda.createBooking.entity;
 
+import com.skanda.util.entity.PaymentMode;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ public class CreateBookingRequest {
     private Long trainId;
     private LocalDate travelDate;
     private Integer numberOfSeats;
-    private String paymentMode;
+    private PaymentMode paymentMode;
     private String classType;
 
 }

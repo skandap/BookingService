@@ -1,12 +1,11 @@
 package com.skanda.util.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name="booking_service")
-public class CreateBookingEntity {
+public class BookingEntity {
 
     @Id
     private Long bookingId;
@@ -30,4 +29,11 @@ public class CreateBookingEntity {
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void assignBookingId() {
+        if (bookingId == null) {
+            bookingId = Math.abs(UUID.randomUUID().getMostSignificantBits());
+        }
+    }
 }

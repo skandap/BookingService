@@ -20,6 +20,6 @@ public class InquireUserBookingController {
     @GetMapping("/bookings/{userId}")
     public ResponseEntity<InquireUserBookingResponse> fetchUserBookings(@PathVariable String userId)
     {
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
