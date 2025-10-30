@@ -18,8 +18,8 @@ public class InquireUserBookingController {
     public InquireUserBookingServiceImpl inquireUserBookingService;
 
     @GetMapping("/bookings/{userId}")
-    public ResponseEntity<InquireUserBookingResponse> fetchUserBookings(@PathVariable String userId)
+    public ResponseEntity<InquireUserBookingResponse> fetchUserBookings(@PathVariable Long userId)
     {
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(inquireUserBookingService.fetchUserBookings(userId),HttpStatus.OK);
     }
 }

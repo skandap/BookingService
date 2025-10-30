@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class InquireUserBookingServiceImpl implements InquireUserBookingService{
     @Override
-    public InquireUserBookingResponse fetchUserBookings(String userId) {
+    public InquireUserBookingResponse fetchUserBookings(Long userId) {
         return null;
     }
 }

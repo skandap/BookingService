@@ -4,5 +4,5 @@ import com.skanda.inquireUserBookings.entity.InquireUserBookingResponse;
 
 public interface InquireUserBookingService {
 
-    InquireUserBookingResponse fetchUserBookings(String userId);
+    InquireUserBookingResponse fetchUserBookings(Long userId);
 }

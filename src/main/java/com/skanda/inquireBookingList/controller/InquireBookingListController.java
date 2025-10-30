@@ -18,9 +18,9 @@ public class InquireBookingListController {
     @Autowired
     public InquireBookingListServiceImpl inquireBookingListService;
 
-    @GetMapping("/bookings")
+    @GetMapping("/list")
     public ResponseEntity<List<InquireBookingListResponse>> createBooking()
     {
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(inquireBookingListService.fetchBookingList(),HttpStatus.OK);
     }
 }

@@ -15,9 +15,9 @@ public class InquireBookingDetailsController {
     @Autowired
     public InquireBookingServiceImpl inquireBookingService;
 
-    @GetMapping("/bookings/{bookingId}")
-    public ResponseEntity<InquireBookingDetailsResponse> fetchBookingDetails(@PathVariable String bookingId)
+    @GetMapping("/{bookingId}")
+    public ResponseEntity<InquireBookingDetailsResponse> fetchBookingDetails(@PathVariable Long bookingId)
     {
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(inquireBookingService.fetchBookingDetails(bookingId),HttpStatus.OK);
     }
 }

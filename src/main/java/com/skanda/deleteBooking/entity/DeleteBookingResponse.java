@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 public class DeleteBookingResponse {
     private Long bookingId;
     private String message;
-    private String status;
     private LocalDateTime timestamp;
 
 }

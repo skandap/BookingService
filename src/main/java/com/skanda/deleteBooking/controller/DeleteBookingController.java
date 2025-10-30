@@ -18,8 +18,8 @@ public class DeleteBookingController {
     public DeleteBookingServiceImpl deleteBookingService;
 
     @DeleteMapping("/cancel/{bookingId}")
-    public ResponseEntity<DeleteBookingResponse> cancelBooking(@PathVariable String bookingId)
+    public ResponseEntity<DeleteBookingResponse> cancelBooking(@PathVariable Long bookingId)
     {
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(deleteBookingService.cancelBooking(bookingId),HttpStatus.OK);
     }
 }
