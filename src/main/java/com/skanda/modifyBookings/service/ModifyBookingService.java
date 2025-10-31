@@ -5,5 +5,5 @@ import com.skanda.modifyBookings.entity.ModifyBookingResponse;
 
 public interface ModifyBookingService {
 
-    ModifyBookingResponse updateDetails(ModifyBookingRequest modifyBookingRequest,String bookingId);
+    ModifyBookingResponse updateDetails(ModifyBookingRequest modifyBookingRequest,Long bookingId);
 }

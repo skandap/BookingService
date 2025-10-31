@@ -15,9 +15,9 @@ public class ModifyBookingController {
     @Autowired
     public ModifyBookingServiceImpl modifyBookingService;
 
-    @PutMapping("update/{bookingId}")
-    public ResponseEntity<ModifyBookingResponse> updateDetails(@RequestBody ModifyBookingRequest modifyBookingRequest,@PathVariable String bookingId)
+    @PutMapping("/update/{bookingId}")
+    public ResponseEntity<ModifyBookingResponse> updateDetails(@RequestBody ModifyBookingRequest modifyBookingRequest,@PathVariable Long bookingId)
     {
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(modifyBookingService.updateDetails(modifyBookingRequest,bookingId),HttpStatus.CREATED);
     }
 }

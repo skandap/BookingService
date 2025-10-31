@@ -20,6 +20,6 @@ public class TrainAvlController {
     @GetMapping("/availability/{trainId}")
     public ResponseEntity<TrainAvlResponse> trainAvlCheck(@PathVariable String trainId)
     {
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(trainAvlService.trainAvlCheck(trainId),HttpStatus.OK);
     }
 }

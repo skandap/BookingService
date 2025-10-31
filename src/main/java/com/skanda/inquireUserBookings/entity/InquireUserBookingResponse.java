@@ -13,5 +13,6 @@ import java.util.List;
 public class InquireUserBookingResponse {
     private Long userId;
     private String userName;
+    private String email;
     private List<BookingSummary> bookings;
 }

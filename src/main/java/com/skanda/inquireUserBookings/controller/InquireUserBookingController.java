@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/bookings")
 public class InquireUserBookingController {
@@ -17,8 +19,8 @@ public class InquireUserBookingController {
     @Autowired
     public InquireUserBookingServiceImpl inquireUserBookingService;
 
-    @GetMapping("/bookings/{userId}")
-    public ResponseEntity<InquireUserBookingResponse> fetchUserBookings(@PathVariable Long userId)
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<InquireUserBookingResponse>> fetchUserBookings(@PathVariable Long userId)
     {
         return new ResponseEntity<>(inquireUserBookingService.fetchUserBookings(userId),HttpStatus.OK);
     }
