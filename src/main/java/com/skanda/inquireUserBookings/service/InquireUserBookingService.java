@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface InquireUserBookingService {
 
-    List<InquireUserBookingResponse> fetchUserBookings(Long userId);
+    InquireUserBookingResponse fetchUserBookings(Long userId);
 }

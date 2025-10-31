@@ -11,7 +11,9 @@ import com.skanda.util.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,37 +29,38 @@ public class InquireUserBookingServiceImpl implements InquireUserBookingService 
     private TrainServiceClient trainServiceClient;
 
     @Override
-    public List<InquireUserBookingResponse> fetchUserBookings(Long userId) {
+    public InquireUserBookingResponse fetchUserBookings(Long userId) {
         List<BookingEntity> bookings = bookingRepository.findAllByUserId(userId);
-
-        return bookings.stream()
-                .map(this::mapToResponse)
-                .toList();
+        UserSummary userSummary = userServiceClient.fetchUser(userId);
+        return mapToResponse(bookings, userSummary);
     }
 
-    private InquireUserBookingResponse mapToResponse(BookingEntity booking) {
-        // Fetch external data
-        UserSummary userSummary = userServiceClient.fetchUser(booking.getUserId());
-        TrainSummary trainSummary = trainServiceClient.fetchTrainSummary(booking.getTrainId());
+    private InquireUserBookingResponse mapToResponse(List<BookingEntity> booking, UserSummary userSummary) {
 
-        // Create booking summary
-        BookingSummary bookingSummary = new BookingSummary();
-        bookingSummary.setBookingId(booking.getBookingId());
-        bookingSummary.setTrain(trainSummary);
-        bookingSummary.setTravelDate(booking.getTravelDate());
-        bookingSummary.setNumberOfSeats(booking.getNumberOfSeats());
-        bookingSummary.setTotalFare(booking.getTotalFare());
-        bookingSummary.setPaymentMode("UPI");
-        bookingSummary.setBookingStatus("PENDING");
-        bookingSummary.setCreatedAt(LocalDateTime.now());
+        InquireUserBookingResponse inquireUserBookingResponse = new InquireUserBookingResponse();
+        inquireUserBookingResponse.setUserId(userSummary.getUserId());
+        inquireUserBookingResponse.setUserName(userSummary.getName());
+        inquireUserBookingResponse.setEmail(userSummary.getEmail());
+        inquireUserBookingResponse.setBookings(mapToBookings(booking));
+        return inquireUserBookingResponse;
 
-        // Return final response
-        InquireUserBookingResponse response = new InquireUserBookingResponse();
-        response.setUserId(userSummary.getUserId());
-        response.setUserName(userSummary.getName());
-        response.setEmail(userSummary.getEmail());
-        response.setBookings(List.of(bookingSummary));
+    }
 
-        return response;
+    public List<BookingSummary> mapToBookings(List<BookingEntity> bookingEntities) {
+        List<BookingSummary> bookingSummaries = new ArrayList<>();
+        for (BookingEntity e : bookingEntities) {
+            TrainSummary trainSummary = trainServiceClient.fetchTrainSummary(e.getTrainId());
+            BookingSummary bookingSummary = new BookingSummary();
+            bookingSummary.setBookingId(e.getBookingId());
+            bookingSummary.setTrain(trainSummary);
+            bookingSummary.setTravelDate(e.getTravelDate());
+            bookingSummary.setNumberOfSeats(e.getNumberOfSeats());
+            bookingSummary.setTotalFare(e.getTotalFare());
+            bookingSummary.setPaymentMode("UPI");
+            bookingSummary.setBookingStatus("PENDING");
+            bookingSummary.setCreatedAt(LocalDateTime.now());
+            bookingSummaries.add(bookingSummary);
+        }
+        return bookingSummaries;
     }
 }

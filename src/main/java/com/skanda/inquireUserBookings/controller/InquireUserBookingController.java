@@ -19,8 +19,8 @@ public class InquireUserBookingController {
     @Autowired
     public InquireUserBookingServiceImpl inquireUserBookingService;
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<InquireUserBookingResponse>> fetchUserBookings(@PathVariable Long userId)
+    @GetMapping("users/{userId}")
+    public ResponseEntity<InquireUserBookingResponse> fetchUserBookings(@PathVariable Long userId)
     {
         return new ResponseEntity<>(inquireUserBookingService.fetchUserBookings(userId),HttpStatus.OK);
     }
