@@ -18,7 +18,7 @@ public class TrainAvlController {
     public TrainAvlServiceImpl trainAvlService;
 
     @GetMapping("/availability/{trainId}")
-    public ResponseEntity<TrainAvlResponse> trainAvlCheck(@PathVariable String trainId)
+    public ResponseEntity<TrainAvlResponse> trainAvlCheck(@PathVariable Long trainId)
     {
         return new ResponseEntity<>(trainAvlService.trainAvlCheck(trainId),HttpStatus.OK);
     }

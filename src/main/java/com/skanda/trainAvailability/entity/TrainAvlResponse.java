@@ -2,6 +2,7 @@ package com.skanda.trainAvailability.entity;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -15,10 +16,10 @@ public class TrainAvlResponse {
     private String trainName;
     private String sourceStation;
     private String destinationStation;
-    private String travelDate;
+    private LocalDate travelDate;
     private Integer totalSeats;
     private Integer bookedSeats;
     private Integer availableSeats;
-    private String status;
+    private String status; //"CLOSED","NOT_SCHEDULED","WAITLIST","CANCELLED","FULL","AVAILABLE"
     private LocalDateTime lastUpdated;
 }

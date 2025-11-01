@@ -11,9 +11,7 @@ import com.skanda.util.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,32 +33,30 @@ public class InquireUserBookingServiceImpl implements InquireUserBookingService 
         return mapToResponse(bookings, userSummary);
     }
 
-    private InquireUserBookingResponse mapToResponse(List<BookingEntity> booking, UserSummary userSummary) {
-
-        InquireUserBookingResponse inquireUserBookingResponse = new InquireUserBookingResponse();
-        inquireUserBookingResponse.setUserId(userSummary.getUserId());
-        inquireUserBookingResponse.setUserName(userSummary.getName());
-        inquireUserBookingResponse.setEmail(userSummary.getEmail());
-        inquireUserBookingResponse.setBookings(mapToBookings(booking));
-        return inquireUserBookingResponse;
-
+    private InquireUserBookingResponse mapToResponse(List<BookingEntity> bookings, UserSummary userSummary) {
+        return InquireUserBookingResponse.builder()
+                .userId(userSummary.getUserId())
+                .userName(userSummary.getName())
+                .email(userSummary.getEmail())
+                .bookings(mapToBookings(bookings))
+                .build();
     }
 
-    public List<BookingSummary> mapToBookings(List<BookingEntity> bookingEntities) {
-        List<BookingSummary> bookingSummaries = new ArrayList<>();
-        for (BookingEntity e : bookingEntities) {
-            TrainSummary trainSummary = trainServiceClient.fetchTrainSummary(e.getTrainId());
-            BookingSummary bookingSummary = new BookingSummary();
-            bookingSummary.setBookingId(e.getBookingId());
-            bookingSummary.setTrain(trainSummary);
-            bookingSummary.setTravelDate(e.getTravelDate());
-            bookingSummary.setNumberOfSeats(e.getNumberOfSeats());
-            bookingSummary.setTotalFare(e.getTotalFare());
-            bookingSummary.setPaymentMode("UPI");
-            bookingSummary.setBookingStatus("PENDING");
-            bookingSummary.setCreatedAt(LocalDateTime.now());
-            bookingSummaries.add(bookingSummary);
-        }
-        return bookingSummaries;
+    private List<BookingSummary> mapToBookings(List<BookingEntity> bookingEntities) {
+        return bookingEntities.stream()
+                .map(e -> {
+                    TrainSummary trainSummary = trainServiceClient.fetchTrainSummary(e.getTrainId());
+                    return BookingSummary.builder()
+                            .bookingId(e.getBookingId())
+                            .train(trainSummary)
+                            .travelDate(e.getTravelDate())
+                            .numberOfSeats(e.getNumberOfSeats())
+                            .totalFare(e.getTotalFare())
+                            .paymentMode("UPI")
+                            .bookingStatus("PENDING")
+                            .createdAt(LocalDateTime.now())
+                            .build();
+                })
+                .toList();
     }
 }
