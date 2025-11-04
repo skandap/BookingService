@@ -41,6 +41,8 @@ public class CreateBookingServiceImpl implements CreateBookingService {
                 .totalFare(100.00)
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
+                .classType(createBookingRequest.getClassType())
+                .paymentMode(createBookingRequest.getPaymentMode().toString())
                 .build();
     }
 

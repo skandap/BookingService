@@ -21,6 +21,7 @@ public class InquireBookingListResponse {
     private Double totalFare;
     private String paymentMode;
     private String bookingStatus;
+    private String classType;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

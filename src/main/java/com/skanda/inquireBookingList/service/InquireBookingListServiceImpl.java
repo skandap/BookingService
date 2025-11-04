@@ -45,6 +45,7 @@ public class InquireBookingListServiceImpl implements InquireBookingListService 
             response.setTotalFare(e.getTotalFare());
             response.setPaymentMode("UPI");
             response.setBookingStatus("PENDING");
+            response.setClassType(e.getClassType());
             response.setCreatedAt(LocalDateTime.now());
             inquireBookingListResponses.add(response);
         }

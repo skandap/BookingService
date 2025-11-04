@@ -56,6 +56,7 @@ public class ModifyBookingServiceImpl implements ModifyBookingService {
                 .newSeatCount(bookingEntity.getNumberOfSeats())
                 .totalFare(bookingEntity.getTotalFare())
                 .bookingStatus("PENDING")
+                .classType(bookingEntity.getClassType())
                 .updatedAt(LocalDateTime.now())
                 .build();
     }

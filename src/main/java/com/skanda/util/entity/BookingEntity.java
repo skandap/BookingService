@@ -26,6 +26,8 @@ public class BookingEntity {
     private LocalDate travelDate;
     private Integer numberOfSeats;
     private Double totalFare;
+    private String classType;
+    private String paymentMode;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

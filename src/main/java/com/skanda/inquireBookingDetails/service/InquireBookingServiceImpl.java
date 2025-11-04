@@ -39,6 +39,7 @@ public class InquireBookingServiceImpl implements InquireBookingDetailsService {
                 .numberOfSeats(bookingEntity.getNumberOfSeats())
                 .totalFare(bookingEntity.getTotalFare())
                 .paymentMode("UPI")
+                .classType(bookingEntity.getClassType())
                 .bookingStatus("PENDING")
                 .createdAt(LocalDateTime.now())
                 .build();

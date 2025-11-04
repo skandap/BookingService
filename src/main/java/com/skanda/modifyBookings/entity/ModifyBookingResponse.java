@@ -22,5 +22,6 @@ public class ModifyBookingResponse {
     private Integer newSeatCount;
     private Double totalFare;
     private String bookingStatus;
+    private String classType;
     private LocalDateTime updatedAt;
 }

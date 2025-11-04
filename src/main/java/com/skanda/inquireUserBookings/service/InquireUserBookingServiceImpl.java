@@ -54,6 +54,7 @@ public class InquireUserBookingServiceImpl implements InquireUserBookingService 
                             .totalFare(e.getTotalFare())
                             .paymentMode("UPI")
                             .bookingStatus("PENDING")
+                            .classType(e.getClassType())
                             .createdAt(LocalDateTime.now())
                             .build();
                 })
