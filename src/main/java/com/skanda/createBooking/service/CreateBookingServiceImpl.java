@@ -58,6 +58,7 @@ public class CreateBookingServiceImpl implements CreateBookingService {
                 .totalFare(bookingEntity.getTotalFare())
                 .paymentMode(PaymentMode.UPI)
                 .bookingStatus(BookingStatus.PENDING)
+                .classType(bookingEntity.getClassType())
                 .createdAt(LocalDateTime.now())
                 .build();
     }

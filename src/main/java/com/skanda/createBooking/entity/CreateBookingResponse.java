@@ -24,5 +24,6 @@ public class CreateBookingResponse {
     private Double totalFare;
     private PaymentMode paymentMode;
     private BookingStatus bookingStatus;
+    private String classType;
     private LocalDateTime createdAt;
 }
