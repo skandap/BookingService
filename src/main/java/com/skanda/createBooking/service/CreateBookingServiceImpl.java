@@ -2,6 +2,7 @@ package com.skanda.createBooking.service;
 
 import com.skanda.createBooking.entity.CreateBookingRequest;
 import com.skanda.createBooking.entity.CreateBookingResponse;
+import com.skanda.util.client.ReferenceCodesClient;
 import com.skanda.util.client.TrainServiceClient;
 import com.skanda.util.client.UserServiceClient;
 import com.skanda.util.entity.*;
@@ -16,6 +17,9 @@ public class CreateBookingServiceImpl implements CreateBookingService {
 
     @Autowired
     public BookingRepository bookingRepository;
+
+    @Autowired
+    public ReferenceCodesClient referenceTable;
 
     @Autowired
     public UserServiceClient userServiceClient;
@@ -35,7 +39,7 @@ public class CreateBookingServiceImpl implements CreateBookingService {
         return BookingEntity.builder().
                 userId(createBookingRequest.getUserId())
                 .trainId(createBookingRequest.getTrainId())
-                .bookingStatus("Pending")
+                .bookingStatus("PENDING")
                 .travelDate(createBookingRequest.getTravelDate())
                 .numberOfSeats(createBookingRequest.getNumberOfSeats())
                 .totalFare(100.00)
@@ -49,6 +53,10 @@ public class CreateBookingServiceImpl implements CreateBookingService {
     public CreateBookingResponse mapToResponse(BookingEntity bookingEntity) {
         UserSummary userSummary = userServiceClient.fetchUser(bookingEntity.getUserId());
         TrainSummary trainSummary = trainServiceClient.fetchTrainSummary(bookingEntity.getTrainId());
+        ReferenceCodes bookingStatus = referenceTable.fetchRefCodes(bookingEntity.getBookingStatus());
+        ReferenceCodes paymentMode = referenceTable.fetchRefCodes(bookingEntity.getPaymentMode());
+        ReferenceCodes classType = referenceTable.fetchRefCodes(bookingEntity.getClassType());
+
         return CreateBookingResponse.builder()
                 .bookingId(bookingEntity.getBookingId())
                 .user(userSummary)
@@ -56,9 +64,9 @@ public class CreateBookingServiceImpl implements CreateBookingService {
                 .travelDate(bookingEntity.getTravelDate())
                 .numberOfSeats(bookingEntity.getNumberOfSeats())
                 .totalFare(bookingEntity.getTotalFare())
-                .paymentMode(PaymentMode.UPI)
-                .bookingStatus(BookingStatus.PENDING)
-                .classType(bookingEntity.getClassType())
+                .paymentMode(paymentMode)
+                .bookingStatus(bookingStatus)
+                .classType(classType)
                 .createdAt(LocalDateTime.now())
                 .build();
     }

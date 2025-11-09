@@ -1,8 +1,9 @@
 package com.skanda.createBooking.entity;
 
 
-import com.skanda.util.entity.BookingStatus;
-import com.skanda.util.entity.PaymentMode;
+import com.skanda.util.entity.ReferenceCodes;
+import com.skanda.util.entity.enums.BookingStatus;
+import com.skanda.util.entity.enums.PaymentMode;
 import com.skanda.util.entity.TrainSummary;
 import com.skanda.util.entity.UserSummary;
 import lombok.*;
@@ -22,8 +23,8 @@ public class CreateBookingResponse {
     private LocalDate travelDate;
     private Integer numberOfSeats;
     private Double totalFare;
-    private PaymentMode paymentMode;
-    private BookingStatus bookingStatus;
-    private String classType;
+    private ReferenceCodes paymentMode;
+    private ReferenceCodes bookingStatus;
+    private ReferenceCodes classType;
     private LocalDateTime createdAt;
 }

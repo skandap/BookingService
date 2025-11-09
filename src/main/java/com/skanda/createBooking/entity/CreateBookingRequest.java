@@ -1,6 +1,6 @@
 package com.skanda.createBooking.entity;
 
-import com.skanda.util.entity.PaymentMode;
+import com.skanda.util.entity.enums.PaymentMode;
 import jakarta.validation.constraints.*;
 import lombok.*;
 

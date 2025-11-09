@@ -1,4 +1,4 @@
-package com.skanda.util.entity;
+package com.skanda.util.entity.enums;
 
 public enum BookingStatus {
     CONFIRMED,

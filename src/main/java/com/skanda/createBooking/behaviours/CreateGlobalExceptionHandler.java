@@ -39,4 +39,13 @@ public class CreateGlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(CodeTypeNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleInvalidFormat(CodeTypeNotFoundException ex) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("status", HttpStatus.BAD_REQUEST.value());
+        error.put("message", "Invalid request format or value (e.g., wrong date or type)");
+        error.put("details", ex.getLocalizedMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
 }
