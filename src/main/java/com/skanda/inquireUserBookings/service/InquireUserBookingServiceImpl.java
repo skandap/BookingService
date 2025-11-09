@@ -1,5 +1,6 @@
 package com.skanda.inquireUserBookings.service;
 
+import com.skanda.inquireUserBookings.behaviour.UserBookingNotFoundEx;
 import com.skanda.inquireUserBookings.entity.InquireUserBookingResponse;
 import com.skanda.util.client.TrainServiceClient;
 import com.skanda.util.client.UserServiceClient;
@@ -29,6 +30,9 @@ public class InquireUserBookingServiceImpl implements InquireUserBookingService 
     @Override
     public InquireUserBookingResponse fetchUserBookings(Long userId) {
         List<BookingEntity> bookings = bookingRepository.findAllByUserId(userId);
+        if (bookings.isEmpty()) {
+            throw new UserBookingNotFoundEx("userId not found for ID: " + userId);
+        }
         UserSummary userSummary = userServiceClient.fetchUser(userId);
         return mapToResponse(bookings, userSummary);
     }

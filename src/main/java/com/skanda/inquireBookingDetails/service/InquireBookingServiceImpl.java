@@ -1,5 +1,6 @@
 package com.skanda.inquireBookingDetails.service;
 
+import com.skanda.inquireBookingDetails.behaviours.DetailsBookingNotFoundEx;
 import com.skanda.inquireBookingDetails.entity.InquireBookingDetailsResponse;
 import com.skanda.util.client.TrainServiceClient;
 import com.skanda.util.client.UserServiceClient;
@@ -24,7 +25,7 @@ public class InquireBookingServiceImpl implements InquireBookingDetailsService {
 
     @Override
     public InquireBookingDetailsResponse fetchBookingDetails(Long bookingId) {
-        BookingEntity bookingEntity = bookingRepository.findById(bookingId).orElseThrow(() -> new RuntimeException("No booking id found"));
+        BookingEntity bookingEntity = bookingRepository.findById(bookingId).orElseThrow(() -> new DetailsBookingNotFoundEx("Booking not found for ID: " + bookingId));
         return mapToResponse(bookingEntity);
     }
 

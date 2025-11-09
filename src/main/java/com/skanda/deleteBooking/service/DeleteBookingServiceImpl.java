@@ -1,5 +1,6 @@
 package com.skanda.deleteBooking.service;
 
+import com.skanda.deleteBooking.behaviour.BookingNotFoundEx;
 import com.skanda.deleteBooking.entity.DeleteBookingResponse;
 import com.skanda.util.entity.BookingEntity;
 import com.skanda.util.repository.BookingRepository;
@@ -19,7 +20,7 @@ public class DeleteBookingServiceImpl implements DeleteBookingService {
     @Override
     public DeleteBookingResponse cancelBooking(Long bookingId) {
         BookingEntity bookingEntity = bookingRepository.findById(bookingId)
-                .orElseThrow(() -> new RuntimeException("Booking not found for ID: " + bookingId));
+                .orElseThrow(() -> new BookingNotFoundEx("Booking not found for ID: " + bookingId));
 
         bookingRepository.delete(bookingEntity);
 

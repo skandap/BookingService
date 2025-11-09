@@ -2,6 +2,7 @@ package com.skanda.deleteBooking.controller;
 
 import com.skanda.deleteBooking.entity.DeleteBookingResponse;
 import com.skanda.deleteBooking.service.DeleteBookingServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class DeleteBookingController {
     public DeleteBookingServiceImpl deleteBookingService;
 
     @DeleteMapping("/cancel/{bookingId}")
-    public ResponseEntity<DeleteBookingResponse> cancelBooking(@PathVariable Long bookingId)
+    public ResponseEntity<DeleteBookingResponse> cancelBooking(@Valid @PathVariable Long bookingId)
     {
         return new ResponseEntity<>(deleteBookingService.cancelBooking(bookingId),HttpStatus.OK);
     }

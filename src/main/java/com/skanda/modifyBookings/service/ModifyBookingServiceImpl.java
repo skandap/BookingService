@@ -1,5 +1,6 @@
 package com.skanda.modifyBookings.service;
 
+import com.skanda.modifyBookings.behaviour.UpdateBookingNotFoundEx;
 import com.skanda.modifyBookings.entity.ModifyBookingRequest;
 import com.skanda.modifyBookings.entity.ModifyBookingResponse;
 import com.skanda.util.client.TrainServiceClient;
@@ -29,7 +30,7 @@ public class ModifyBookingServiceImpl implements ModifyBookingService {
 
     @Override
     public ModifyBookingResponse updateDetails(ModifyBookingRequest modifyBookingRequest, Long bookingId) {
-        BookingEntity bookingEntity = bookingRepository.findById(bookingId).orElseThrow(() -> new RuntimeException("No bookingId found"));
+        BookingEntity bookingEntity = bookingRepository.findById(bookingId).orElseThrow(() -> new UpdateBookingNotFoundEx("Booking not found for ID: " + bookingId));
         return mapToResponse(bookingEntity, modifyBookingRequest);
     }
 

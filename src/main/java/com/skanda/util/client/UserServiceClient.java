@@ -1,5 +1,6 @@
 package com.skanda.util.client;
 
+import com.skanda.inquireUserBookings.behaviour.UserBookingNotFoundEx;
 import com.skanda.util.entity.UserSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -26,12 +27,16 @@ public class UserServiceClient {
 
         HttpEntity<Void> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<UserSummary> response = restTemplate.exchange(
-                USER_SERVICE_URL + userId,
-                HttpMethod.GET,
-                entity,
-                UserSummary.class
-        );
-        return response.getBody();
+        try {
+            ResponseEntity<UserSummary> response = restTemplate.exchange(
+                    USER_SERVICE_URL + userId,
+                    HttpMethod.GET,
+                    entity,
+                    UserSummary.class
+            );
+            return response.getBody();
+        } catch (Exception e) {
+            throw new UserBookingNotFoundEx("No user found for Id: " + userId);
+        }
     }
 }

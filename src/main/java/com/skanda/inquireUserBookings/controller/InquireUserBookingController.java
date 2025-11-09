@@ -2,6 +2,7 @@ package com.skanda.inquireUserBookings.controller;
 
 import com.skanda.inquireUserBookings.entity.InquireUserBookingResponse;
 import com.skanda.inquireUserBookings.service.InquireUserBookingServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class InquireUserBookingController {
     public InquireUserBookingServiceImpl inquireUserBookingService;
 
     @GetMapping("users/{userId}")
-    public ResponseEntity<InquireUserBookingResponse> fetchUserBookings(@PathVariable Long userId)
+    public ResponseEntity<InquireUserBookingResponse> fetchUserBookings(@Valid @PathVariable Long userId)
     {
         return new ResponseEntity<>(inquireUserBookingService.fetchUserBookings(userId),HttpStatus.OK);
     }

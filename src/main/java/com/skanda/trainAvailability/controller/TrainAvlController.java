@@ -2,6 +2,7 @@ package com.skanda.trainAvailability.controller;
 
 import com.skanda.trainAvailability.entity.TrainAvlResponse;
 import com.skanda.trainAvailability.service.TrainAvlServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class TrainAvlController {
     public TrainAvlServiceImpl trainAvlService;
 
     @GetMapping("/availability/{trainId}")
-    public ResponseEntity<TrainAvlResponse> trainAvlCheck(@PathVariable Long trainId)
+    public ResponseEntity<TrainAvlResponse> trainAvlCheck(@Valid @PathVariable Long trainId)
     {
         return new ResponseEntity<>(trainAvlService.trainAvlCheck(trainId),HttpStatus.OK);
     }
