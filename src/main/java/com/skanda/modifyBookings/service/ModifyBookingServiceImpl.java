@@ -3,9 +3,11 @@ package com.skanda.modifyBookings.service;
 import com.skanda.modifyBookings.behaviour.UpdateBookingNotFoundEx;
 import com.skanda.modifyBookings.entity.ModifyBookingRequest;
 import com.skanda.modifyBookings.entity.ModifyBookingResponse;
+import com.skanda.util.client.ReferenceCodesClient;
 import com.skanda.util.client.TrainServiceClient;
 import com.skanda.util.client.UserServiceClient;
 import com.skanda.util.entity.BookingEntity;
+import com.skanda.util.entity.ReferenceCodes;
 import com.skanda.util.entity.TrainSummary;
 import com.skanda.util.entity.UserSummary;
 import com.skanda.util.repository.BookingRepository;
@@ -28,6 +30,9 @@ public class ModifyBookingServiceImpl implements ModifyBookingService {
     @Autowired
     public TrainServiceClient trainServiceClient;
 
+    @Autowired
+    public ReferenceCodesClient referenceCodesClient;
+
     @Override
     public ModifyBookingResponse updateDetails(ModifyBookingRequest modifyBookingRequest, Long bookingId) {
         BookingEntity bookingEntity = bookingRepository.findById(bookingId).orElseThrow(() -> new UpdateBookingNotFoundEx("Booking not found for ID: " + bookingId));
@@ -39,6 +44,8 @@ public class ModifyBookingServiceImpl implements ModifyBookingService {
         int oldSeatCount = bookingEntity.getNumberOfSeats();
         UserSummary userSummary = userServiceClient.fetchUser(bookingEntity.getUserId());
         TrainSummary trainSummary = trainServiceClient.fetchTrainSummary(bookingEntity.getTrainId());
+        ReferenceCodes bookingStatus= referenceCodesClient.fetchRefCodes(bookingEntity.getBookingStatus());
+        ReferenceCodes classType= referenceCodesClient.fetchRefCodes(bookingEntity.getClassType());
 
         if (bookingEntity.getTravelDate() != modifyBookingRequest.getTravelDate()) {
             bookingEntity.setTravelDate(modifyBookingRequest.getTravelDate());
@@ -56,8 +63,8 @@ public class ModifyBookingServiceImpl implements ModifyBookingService {
                 .oldSeatCount(oldSeatCount)
                 .newSeatCount(bookingEntity.getNumberOfSeats())
                 .totalFare(bookingEntity.getTotalFare())
-                .bookingStatus("PENDING")
-                .classType(bookingEntity.getClassType())
+                .bookingStatus(bookingStatus)
+                .classType(classType)
                 .updatedAt(LocalDateTime.now())
                 .build();
     }

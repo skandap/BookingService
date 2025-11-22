@@ -1,5 +1,6 @@
 package com.skanda.createBooking.entity;
 
+import com.skanda.util.entity.enums.ClassType;
 import com.skanda.util.entity.enums.PaymentMode;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -33,7 +34,6 @@ public class CreateBookingRequest {
     @NotNull(message = "Payment mode is required")
     private PaymentMode paymentMode;
 
-    @NotBlank(message = "Class type is required")
-    @Pattern(regexp = "SL|3A|2A|1A", message = "Class type must be one of SL, 3A, 2A, 1A")
-    private String classType;
+    @NotNull(message = "Class type is required")
+    private ClassType classType;
 }

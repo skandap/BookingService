@@ -1,7 +1,9 @@
 package com.skanda.util.entity;
 
+import com.skanda.util.client.ReferenceCodesClient;
 import lombok.*;
 
+import java.sql.Ref;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -16,8 +18,8 @@ public class BookingSummary {
     private LocalDate travelDate;
     private Integer numberOfSeats;
     private Double totalFare;
-    private String paymentMode;
-    private String bookingStatus;
-    private String classType;
+    private ReferenceCodes paymentMode;
+    private ReferenceCodes bookingStatus;
+    private ReferenceCodes classType;
     private LocalDateTime createdAt;
 }

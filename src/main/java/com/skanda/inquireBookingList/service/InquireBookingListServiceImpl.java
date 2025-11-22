@@ -1,9 +1,11 @@
 package com.skanda.inquireBookingList.service;
 
 import com.skanda.inquireBookingList.entity.InquireBookingListResponse;
+import com.skanda.util.client.ReferenceCodesClient;
 import com.skanda.util.client.TrainServiceClient;
 import com.skanda.util.client.UserServiceClient;
 import com.skanda.util.entity.BookingEntity;
+import com.skanda.util.entity.ReferenceCodes;
 import com.skanda.util.entity.TrainSummary;
 import com.skanda.util.entity.UserSummary;
 import com.skanda.util.repository.BookingRepository;
@@ -25,6 +27,9 @@ public class InquireBookingListServiceImpl implements InquireBookingListService 
     @Autowired
     public TrainServiceClient trainServiceClient;
 
+    @Autowired
+    public ReferenceCodesClient referenceCodesClient;
+
     @Override
     public List<InquireBookingListResponse> fetchBookingList() {
         List<BookingEntity> bookingEntity = bookingRepository.findAll();
@@ -36,6 +41,9 @@ public class InquireBookingListServiceImpl implements InquireBookingListService 
         for (BookingEntity e : bookingEntity) {
             UserSummary userSummary = userServiceClient.fetchUser(e.getUserId());
             TrainSummary trainSummary = trainServiceClient.fetchTrainSummary(e.getTrainId());
+            ReferenceCodes bookingStatus= referenceCodesClient.fetchRefCodes(e.getBookingStatus());
+            ReferenceCodes paymentMode= referenceCodesClient.fetchRefCodes(e.getPaymentMode());
+            ReferenceCodes classType= referenceCodesClient.fetchRefCodes(e.getClassType());
             InquireBookingListResponse response = new InquireBookingListResponse();
             response.setBookingId(e.getBookingId());
             response.setUser(userSummary);
@@ -43,9 +51,9 @@ public class InquireBookingListServiceImpl implements InquireBookingListService 
             response.setTravelDate(e.getTravelDate());
             response.setNumberOfSeats(e.getNumberOfSeats());
             response.setTotalFare(e.getTotalFare());
-            response.setPaymentMode("UPI");
-            response.setBookingStatus("PENDING");
-            response.setClassType(e.getClassType());
+            response.setPaymentMode(paymentMode);
+            response.setBookingStatus(bookingStatus);
+            response.setClassType(classType);
             response.setCreatedAt(LocalDateTime.now());
             inquireBookingListResponses.add(response);
         }

@@ -1,5 +1,6 @@
 package com.skanda.modifyBookings.entity;
 
+import com.skanda.util.entity.ReferenceCodes;
 import com.skanda.util.entity.TrainSummary;
 import com.skanda.util.entity.UserSummary;
 import lombok.*;
@@ -21,7 +22,7 @@ public class ModifyBookingResponse {
     private Integer oldSeatCount;
     private Integer newSeatCount;
     private Double totalFare;
-    private String bookingStatus;
-    private String classType;
+    private ReferenceCodes bookingStatus;
+    private ReferenceCodes classType;
     private LocalDateTime updatedAt;
 }

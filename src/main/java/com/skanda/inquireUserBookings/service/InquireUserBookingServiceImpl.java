@@ -2,12 +2,10 @@ package com.skanda.inquireUserBookings.service;
 
 import com.skanda.inquireUserBookings.behaviour.UserBookingNotFoundEx;
 import com.skanda.inquireUserBookings.entity.InquireUserBookingResponse;
+import com.skanda.util.client.ReferenceCodesClient;
 import com.skanda.util.client.TrainServiceClient;
 import com.skanda.util.client.UserServiceClient;
-import com.skanda.util.entity.BookingEntity;
-import com.skanda.util.entity.BookingSummary;
-import com.skanda.util.entity.TrainSummary;
-import com.skanda.util.entity.UserSummary;
+import com.skanda.util.entity.*;
 import com.skanda.util.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +24,9 @@ public class InquireUserBookingServiceImpl implements InquireUserBookingService 
 
     @Autowired
     private TrainServiceClient trainServiceClient;
+
+    @Autowired
+    private ReferenceCodesClient referenceCodesClient;
 
     @Override
     public InquireUserBookingResponse fetchUserBookings(Long userId) {
@@ -50,15 +51,18 @@ public class InquireUserBookingServiceImpl implements InquireUserBookingService 
         return bookingEntities.stream()
                 .map(e -> {
                     TrainSummary trainSummary = trainServiceClient.fetchTrainSummary(e.getTrainId());
+                    ReferenceCodes bookingStatus= referenceCodesClient.fetchRefCodes(e.getBookingStatus());
+                    ReferenceCodes paymentMode= referenceCodesClient.fetchRefCodes(e.getPaymentMode());
+                    ReferenceCodes classType= referenceCodesClient.fetchRefCodes(e.getClassType());
                     return BookingSummary.builder()
                             .bookingId(e.getBookingId())
                             .train(trainSummary)
                             .travelDate(e.getTravelDate())
                             .numberOfSeats(e.getNumberOfSeats())
                             .totalFare(e.getTotalFare())
-                            .paymentMode("UPI")
-                            .bookingStatus("PENDING")
-                            .classType(e.getClassType())
+                            .paymentMode(paymentMode)
+                            .bookingStatus(bookingStatus)
+                            .classType(classType)
                             .createdAt(LocalDateTime.now())
                             .build();
                 })

@@ -1,9 +1,11 @@
 package com.skanda.inquireBookingList.entity;
 
+import com.skanda.util.entity.ReferenceCodes;
 import com.skanda.util.entity.TrainSummary;
 import com.skanda.util.entity.UserSummary;
 import lombok.*;
 
+import java.sql.Ref;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -19,9 +21,9 @@ public class InquireBookingListResponse {
     private LocalDate travelDate;
     private Integer numberOfSeats;
     private Double totalFare;
-    private String paymentMode;
-    private String bookingStatus;
-    private String classType;
+    private ReferenceCodes paymentMode;
+    private ReferenceCodes bookingStatus;
+    private ReferenceCodes classType;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
